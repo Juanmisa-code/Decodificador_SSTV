@@ -151,5 +151,5 @@ Esto debería funcionar en un salón de clases siempre que no haya demasiado rui
     - Descargar archivo de prueba
     - Inicio > Accesorios > Terminal
     ```
-    wget https://raw.githubusercontent.com/davidhoness/sstv_decoder/master/sstv_test.mp3
+    wget https://github.com/Juanmisa-code/Decodificador_SSTV/blob/main/sstv_test.mp3
     ```
