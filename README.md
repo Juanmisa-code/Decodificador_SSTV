@@ -153,3 +153,36 @@ Esto debería funcionar en un salón de clases siempre que no haya demasiado rui
     ```
     wget https://github.com/Juanmisa-code/Decodificador_SSTV/blob/main/sstv_test.mp3
     ```
+    
+    - Seleccione la pestaña `Recibir` en QSSTV.
+    
+    ![image](qsstv_receive.png)
+    
+    - Use VIS = `ON`
+    - Auto Slant = `ON`
+    - Autosave = `ON`
+    - Signals = `Normal`
+    - Mode = `Auto`
+    - Haga clic en el botón reproducir `►`. No pasará nada, pero simplemente haga clic en él para iniciar el receptor.
+    - Abra `sstv_test.mp3` en el navegador Chromium. Puede arrastrar y soltar el archivo desde el Administrador de archivos
+    - Dejalo reproducir. Tenga en cuenta que con VLC Media Player a veces obtiene una imagen sesgada.
+
+    ![image](qsstv_decode.png) 
+    
+    - Observar la decodificación en QSSTV. Observe la actividad de visualización en cascada y FFT a la derecha de la pantalla.
+    - Se pueden encontrar otras grabaciones de prueba de SSTV en línea, como: https://soundcloud.com/spacecomms/pd120-sstv-test-recording
+
+## Nota sobre el desplazamiento Doppler
+1.  ¿Qué es? Un ejemplo común de [desplazamiento Doppler](https://en.wikipedia.org/wiki/Doppler_effect) es el cambio de tono que se escucha cuando pasa un coche de policía o una ambulancia. En comparación con la frecuencia emitida por la sirena, la frecuencia que escucha es más alta durante la aproximación, idéntica en el instante de paso y más baja durante la salida. Con las ondas de radio ocurre lo mismo que con las ondas sonoras.
+    - La EEI se mueve a ~27.600 km/h. Este movimiento provoca un desplazamiento Doppler en las ondas de radio recibidas en nuestra ubicación.
+    - Para compensar los efectos del desplazamiento Doppler, las estaciones terrestres deben resintonizar continuamente su receptor a medida que la EEI se acerca, pasa por encima y se aleja.
+    - A medida que la EEI se acerca al horizonte (AOS o Adquisición de señal por sus siglas en inglés), deberá sintonizar aproximadamente 3,5 kHz POR ENCIMA de 145,8 MHz.
+    - En el instante en que la EEI está directamente sobre su cabeza, se puede utilizar la frecuencia de transmisión real de 145,8 MHz.
+    - Justo antes de que la EEI descienda por el horizonte (LOS o Loss of Signal), deberá sintonizar aproximadamente 3,5 kHz POR DEBAJO de 145,8 MHz.
+    - La cantidad de resintonización depende de la elevación de la EEI sobre el horizonte. Por ejemplo, un pase por encima de la cabeza requiere muchos ajustes porque hay un gran cambio en la distancia y la velocidad relativa a medida que pasa la EEI. Un paso de baja elevación, donde se asoma por encima del horizonte y vuelve a bajar, requiere relativamente poco.
+    - No se realiza compensación de desplazamiento Doppler en la EEI. Todas las compensaciones deben ser manejadas por estaciones terrestres individuales.
+    - Más información: https://www.qsl.net/ah6rh/am-radio/spacecomm/doppler-and-the-iss.html
+    - Afortunadamente, **QSSTV puede lidiar con el desplazamiento Doppler por sí mismo** y, por lo tanto, no tiene que hacer nada para compensar después de sintonizar 145,8 MHz.
+1.  Si desea realizar la corrección Doppler de todos modos, no hará ningún daño. De hecho, podría ser una buena actividad de codificación para un salón de clases.
+1.  [Aquí](https://github.com/davidhoness/sstv_decoder/blob/master/doppler.py) hay un script de Python prefabricado para compensar el cambio de Doppler. Este programa rastrea la EEI usando `ephem`, calcula la frecuencia corregida por Doppler para cuando la ISS está pasando y vuelve a sintonizar `rtl_fm` a través de un conector UDP.
+1.  Deberá modificar este script de python para establecer su ubicación. Puede buscar fácilmente la latitud y la longitud de su ubicación mediante [geocodificador de Google Maps](https://google-developers.appspot.com/maps/documentation/utils/geocoder/). Por lo general, el código postal y el país son suficientes.
