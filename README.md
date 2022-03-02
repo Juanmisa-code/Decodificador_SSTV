@@ -186,3 +186,27 @@ Esto debería funcionar en un salón de clases siempre que no haya demasiado rui
 1.  Si desea realizar la corrección Doppler de todos modos, no hará ningún daño. De hecho, podría ser una buena actividad de codificación para un salón de clases.
 1.  [Aquí](https://github.com/davidhoness/sstv_decoder/blob/master/doppler.py) hay un script de Python prefabricado para compensar el cambio de Doppler. Este programa rastrea la EEI usando `ephem`, calcula la frecuencia corregida por Doppler para cuando la ISS está pasando y vuelve a sintonizar `rtl_fm` a través de un conector UDP.
 1.  Deberá modificar este script de python para establecer su ubicación. Puede buscar fácilmente la latitud y la longitud de su ubicación mediante [geocodificador de Google Maps](https://google-developers.appspot.com/maps/documentation/utils/geocoder/). Por lo general, el código postal y el país son suficientes.
+
+## Recive imágenes de la EEI
+1. Para hacer esto necesitas saber tres cosas:
+    - Cuando la EEI estará transmitiendo la señal SSTV. **No siempre está encendido**.
+    - En qué frecuencia se transmitirá la señal SSTV (normalmente 145,8 MHz).
+    - Cuando la ISS sobrevuela tu ubicación.
+      - La ISS sobrevuela la mayoría de los lugares varias veces al día (a menos que viva en el Ártico/Antártico).
+
+1.  Puede averiguar cuándo la EEI está transmitiendo aquí: http://ariss-sstv.blogspot.com/
+    - A menudo hay un evento SSTV en abril para el cumpleaños de Yuri Gagarin (el cosmonauta y piloto soviético que se convirtió en el primer hombre en viajar al espacio exterior).
+    - Por lo general, duran unos días a la vez, lo que significa que obtendrá múltiples pases de la EEI durante los cuales puede recibir la señal SSTV.
+
+1.  Puede consultar cuándo pasará la EEI por su ubicación en: https://www.heavens-above.com/
+    - Haz clic en "Sin especificar" en la parte superior derecha para establecer tu ubicación.
+    - Escriba **su** código postal y país en *Ingrese el lugar para buscar* y haga clic en `Buscar`.
+    - Desplácese hacia abajo y haga clic en 'Actualizar'.
+    - Ahora volverá a la página de inicio, en *Satélites*, haga clic en `ISS`.
+    - En *Pases para incluir*, haga clic en `todos`.
+        - El valor *Alt* debajo de *Punto más alto* es la elevación máxima del paso sobre el horizonte, 90 estaría directamente sobre su cabeza.
+        - Los pases con mayor elevación máxima darán mejores resultados que los más bajos.
+    - Al hacer clic en cualquier fila de la tabla, se muestra el **gráfico del cielo** para ese pase.
+        - Imagina sostener esa imagen sobre tu cabeza y alinearla con las direcciones de la brújula.
+        - La línea muestra la ruta de vuelo de la ISS y esto es útil para posicionar aproximadamente su antena.
+        - También puede ser útil mirar la `Pista de tierra` (ver enlace en la parte superior derecha).
