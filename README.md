@@ -210,3 +210,29 @@ Esto debería funcionar en un salón de clases siempre que no haya demasiado rui
         - Imagina sostener esa imagen sobre tu cabeza y alinearla con las direcciones de la brújula.
         - La línea muestra la ruta de vuelo de la ISS y esto es útil para posicionar aproximadamente su antena.
         - También puede ser útil mirar la `Pista de tierra` (ver enlace en la parte superior derecha).
+       
+1.  Planifique con anticipación y configure su estación terrestre con tiempo de sobra antes de que la EEI sobrevuele.
+1.  Si está utilizando la antena del kit RTL-SDR, lea la [guía de inicio](https://www.rtl-sdr.com/using-our-new-dipole-antenna-kit/) para ello.
+    - Es una buena idea ajustar la longitud de los brazos telescópicos según este dipolo [calculadora](http://www.csgnetwork.com/antennaedcalc.html) para que coincida con la frecuencia de resonancia de la antena a 145,8 MHz. Esto ayudará a captar señales más débiles de pasos de baja elevación.
+        - En `Frecuencia deseada` introduzca `145.8`
+        - En 'Seleccionar cálculo de antena', seleccione 'Un lado'
+        - Haga clic en `Calcular`
+        - Recuerde que hay unos 2 cm de metal en cada lado de la base de la antena. Así que tome el valor calculado y, antes de atornillar los brazos, haga que ambos tengan esta           longitud menos 2 cm (excluyendo las roscas de los tornillos). No tiene que ser perfecto, pero hazlo lo más parecido posible.
+    - Para empezar, despliega el dipolo en forma de v vertical y oriéntalo con la trayectoria de vuelo de la EEI que encuentras en https://www.heavens-above.com/
+        - Quizás una mejor manera de decir esto es, con el dipolo plano, alinéelo con la trayectoria de vuelo de la ISS y luego doble los dos brazos hacia arriba en forma de V             en ángulo recto.
+    - Las antenas y su desempeño son a veces una forma de arte en lugar de una ciencia exacta.
+    - Experimenta con diferentes configuraciones en diferentes pases de la EEI. Pruebe con un brazo horizontal y un brazo vertical, por ejemplo.
+
+1.  Trate de elevar su antena lo más alto posible con una buena vista del cielo en todas las direcciones.
+1.  Configure la hora correcta en la Raspberry Pi. QSSTV guarda las imágenes con un nombre de archivo de hora UTC y esto es útil más adelante cuando se determina de qué pases EEI son.
+    - Inicio > Accesorios > Terminal
+     ```
+    sudo ntpdate pool.ntp.org
+    ```
+1.  Inicie `rtl_fm` en una ventana de Terminal (mantenga esta ventana abierta)
+    - Inicio > Accesorios > Terminal
+    ```
+    rtl_fm -M fm -f 145.8M -s 48k | play -r 48k -t raw -e s -b 16 -c 1 -V1 -
+    ```
+    - Tenga en cuenta que este comando es diferente al de la estación de radio comercial. Una estación de radio comercial usa FM de banda ancha, mientras que la transmisión ISS usa FM de banda estrecha, por lo que tenemos que configurar `rtl_fm` de manera diferente.
+1.  **OPCIONAL:** Si está realizando la corrección Doppler, inicie `doppler.py` en *otra* ventana de Terminal (mantenga esta ventana abierta también).
